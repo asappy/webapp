@@ -126,8 +126,8 @@ def airconditioner_off():
     return "エアコンを消しました"
 @app.route("/airconditioner_on")
 def airconditioner_on():
-    temperature = 0
-    airconditonertype = 0
+    temperature = str(0)
+    airconditonertype = str(0)
     operate_switchobot_airconditioner_turnOn(device_id_airconditioner,temperature,airconditonertype)
     sentense = "エアコンを" + temperature + "度で" + airconditonertype + "でつけました"
     return sentense
