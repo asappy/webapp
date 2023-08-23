@@ -10,6 +10,7 @@ import hashlib
 
 app = Flask(__name__)
 
+"""
 auth_key = os.environ["SWITCHBOT_AUTH_KEY"] # copy and paste from the SwitchBot app V6.14 or later
 secret = os.environ["SWITCHBOT_SECRET"] # copy and paste from the SwitchBot app V6.14 or later
 
@@ -18,7 +19,7 @@ device_id_airconditioner = "02-202207132236-15163498"
 device_id_tv = "02-202207132329-83831759"
 
 def generate_sign(token: str, secret: str, nonce: str) -> tuple[str, str]:
-    """SWITCH BOT APIの認証キーを生成する"""
+    #SWITCH BOT APIの認証キーを生成する
 
     t = int(round(time.time() * 1000))
     string_to_sign = "{}{}{}".format(token, t, nonce)
@@ -94,7 +95,7 @@ def operate_switchobot_airconditioner_turnOn(ID,temperature,airconditonertype):
     airconditonertype = "冷房"
     r = requests.post(url, headers=headers, data=json.dumps(params))
     return temperature,airconditonertype
-
+"""
 @app.route("/")
 def hello_world():
     return "hello world!"#テスト用
