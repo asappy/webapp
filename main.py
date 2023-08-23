@@ -101,7 +101,7 @@ def operate_switchobot_airconditioner_turnOn(ID, temperature, airconditonertype)
 def hello():
     return "Hello, world!!"
 
-
+"""
 @app.route("/light_off")
 def light_off():
     operate_switchobot_turnOff(device_id_light, 2)
@@ -126,7 +126,7 @@ def TV_off():
 def airconditioner_off():
     operate_switchobot_turnOff(device_id_airconditioner, 1)
     return "エアコンを消しました"
-"""
+
 @app.route("/airconditioner_on")
 def airconditioner_on():
     temperature = str(0)
@@ -139,6 +139,3 @@ def airconditioner_on():
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-
-
-
