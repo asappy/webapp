@@ -1,6 +1,5 @@
 from flask import Flask
 import os
-
 import requests
 import json
 import time
@@ -10,7 +9,7 @@ import hashlib
 
 app = Flask(__name__)
 
-"""
+
 auth_key = os.environ["SWITCHBOT_AUTH_KEY"] # copy and paste from the SwitchBot app V6.14 or later
 secret = os.environ["SWITCHBOT_SECRET"] # copy and paste from the SwitchBot app V6.14 or later
 
@@ -74,7 +73,8 @@ def operate_switchobot_turnOn(ID):
     r = requests.post(url, headers=headers, data=json.dumps(params))
     return
 
-def operate_switchobot_airconditioner_turnOn(ID,temperature,airconditonertype):
+"""
+def operate_switchobot_airconditioner_turnOn(ID, temperature, airconditonertype):
     url = "https://api.switch-bot.com/v1.1/devices/" + ID + "/commands"
     nonce = "zzz"
     t, sign = generate_sign(auth_key, secret, nonce)
@@ -96,9 +96,10 @@ def operate_switchobot_airconditioner_turnOn(ID,temperature,airconditonertype):
     r = requests.post(url, headers=headers, data=json.dumps(params))
     return temperature,airconditonertype
 """
+
 @app.route("/")
-def hello_world():
-    return "hello world!"#テスト用
+def hello():
+    return "Hello, world!!"
 
 
 @app.route("/light_off")
@@ -134,10 +135,10 @@ def airconditioner_on():
     sentense = "エアコンを" + temperature + "度で" + airconditonertype + "でつけました"
     return sentense
 """
-  
+
 if __name__ == "__main__":
-#    app.run()
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
