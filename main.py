@@ -7,8 +7,8 @@ app = Flask(__name__)
 def hello():
     return "Hello, world!!"
 
-@app.route("/ight")
-def hello():
+@app.route("/light")
+def hello1():
     return "Hello, world!"
 
 if __name__ == "__main__":
