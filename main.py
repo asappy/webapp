@@ -124,6 +124,7 @@ def TV_off():
 def airconditioner_off():
     operate_switchobot_turnOff(device_id_airconditioner, 1)
     return "エアコンを消しました"
+"""
 @app.route("/airconditioner_on")
 def airconditioner_on():
     temperature = str(0)
@@ -131,7 +132,7 @@ def airconditioner_on():
     operate_switchobot_airconditioner_turnOn(device_id_airconditioner,temperature,airconditonertype)
     sentense = "エアコンを" + temperature + "度で" + airconditonertype + "でつけました"
     return sentense
-    
+"""
   
 if __name__ == "__main__":
 #    app.run()
