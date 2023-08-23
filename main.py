@@ -101,12 +101,12 @@ def operate_switchobot_airconditioner_turnOn(ID, temperature, airconditonertype)
 def hello():
     return "Hello, world!!"
 
-"""
+
 @app.route("/light_off")
 def light_off():
     operate_switchobot_turnOff(device_id_light, 2)
     return "照明を消しました"
-
+"""
 @app.route("/light_on")
 def light_on():
     operate_switchobot_turnOn(device_id_light)
