@@ -1,24 +1,6 @@
-from flask import Flask
-import os
-
-app = Flask(__name__)
-
-@app.route("/")
-def hello():
-    return "Hello, world!!"
-
-@app.route("/light")
-def hello1():
-    return "Hello, world!"
-
-if __name__ == "__main__":
-    port = int(os.getenv("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
-
-'''
 from flask import Flask, request, abort
 import os
-
+"""
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -28,6 +10,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, QuickReplyButton, MessageAction, QuickReply,
 )
+"""
 import requests
 import json
 import time
@@ -38,14 +21,19 @@ import hashlib
 app = Flask(__name__)
 
 #環境変数取得
-YOUR_CHANNEL_ACCESS_TOKEN = os.environ["LINE_ACCESS_TOKEN"]
-YOUR_CHANNEL_SECRET = os.environ["LINE_SECRET"]
+#YOUR_CHANNEL_ACCESS_TOKEN = os.environ["LINE_ACCESS_TOKEN"]
+#YOUR_CHANNEL_SECRET = os.environ["LINE_SECRET"]
 
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 auth_key = os.environ["SWITCHBOT_AUTH_KEY"] # copy and paste from the SwitchBot app V6.14 or later
 secret = os.environ["SWITCHBOT_SECRET"] # copy and paste from the SwitchBot app V6.14 or later
+
+device_id_light = "02-202207132247-89473231"
+device_id_airconditioner = "02-202207132236-15163498"
+device_id_tv = "02-202207132329-83831759"
+
 def generate_sign(token: str, secret: str, nonce: str) -> tuple[str, str]:
     """SWITCH BOT APIの認証キーを生成する"""
 
@@ -102,10 +90,68 @@ def operate_switchobot_turnOn(ID):
     r = requests.post(url, headers=headers, data=json.dumps(params))
     return
 
+def operate_switchobot_airconditioner_turnOn(ID,temperature,airconditonertype):
+    url = "https://api.switch-bot.com/v1.1/devices/" + ID + "/commands"
+    nonce = "zzz"
+    t, sign = generate_sign(auth_key, secret, nonce)
+    headers = {
+        "Content-Type": "application/json; charset: utf8",
+        "Authorization": auth_key,
+        "t": t,
+        "sign": sign,
+        "nonce": nonce,
+    }
+
+    params = {
+    "command": "setAll",
+    "parameter": "26,2,1,on",
+    "commandType": "command"
+    }
+    temperature = str(26)
+    airconditonertype = "冷房"
+    r = requests.post(url, headers=headers, data=json.dumps(params))
+    return temperature,airconditonertype
+
 @app.route("/")
 def hello_world():
     return "hello world!"#テスト用
 
+
+@app.route("/light_off")
+def light_off():
+    operate_switchobot_turnOff(device_id_light, 2)
+    return "照明を消しました"
+
+@app.route("/light_on")
+def light_on():
+    operate_switchobot_turnOn(device_id_light)
+    return "照明をつけました"
+
+@app.route("/TV_on")
+def TV_on():
+    operate_switchobot_turnOn(device_id_tv)
+    return "テレビをつけました"
+
+@app.route("TV_off")
+def TV_off():
+    operate_switchobot_turnOff(device_id_tv, 1)
+    return "テレビを消しました"
+
+@app.route("/airconditioner_off")
+def airconditioner_off():
+    operate_switchobot_turnOff(device_id_airconditioner, 1)
+    return "エアコンを消しました"
+@app.route("/airconditioner_on")
+def airconditioner_on():
+    temperature = 0
+    airconditonertype = 0
+    operate_switchobot_airconditioner_turnOn(device_id_airconditioner,temperature,airconditonertype)
+    sentense = "エアコンを" + temperature + "度で" + airconditonertype + "でつけました"
+    return sentense
+    
+    
+
+"""
 @app.route("/webhook", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
@@ -167,9 +213,14 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=event.message.text))
-
+"""
 if __name__ == "__main__":
 #    app.run()
     port = int(os.getenv("PORT"))
     app.run(host="0.0.0.0", port=port)
-'''
+"""
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+"""
+
