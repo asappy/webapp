@@ -73,7 +73,7 @@ def operate_switchobot_turnOn(ID):
     r = requests.post(url, headers=headers, data=json.dumps(params))
     return
 
-"""
+
 def operate_switchobot_airconditioner_turnOn(ID, temperature, airconditonertype):
     url = "https://api.switch-bot.com/v1.1/devices/" + ID + "/commands"
     nonce = "zzz"
@@ -95,7 +95,7 @@ def operate_switchobot_airconditioner_turnOn(ID, temperature, airconditonertype)
     airconditonertype = "冷房"
     r = requests.post(url, headers=headers, data=json.dumps(params))
     return temperature,airconditonertype
-"""
+
 
 @app.route("/")
 def hello():
@@ -106,7 +106,7 @@ def hello():
 def light_off():
     operate_switchobot_turnOff(device_id_light, 2)
     return "照明を消しました"
-"""
+
 @app.route("/light_on")
 def light_on():
     operate_switchobot_turnOn(device_id_light)
@@ -117,7 +117,7 @@ def TV_on():
     operate_switchobot_turnOn(device_id_tv)
     return "テレビをつけました"
 
-@app.route("TV_off")
+@app.route("/TV_off")
 def TV_off():
     operate_switchobot_turnOff(device_id_tv, 1)
     return "テレビを消しました"
@@ -134,7 +134,7 @@ def airconditioner_on():
     operate_switchobot_airconditioner_turnOn(device_id_airconditioner,temperature,airconditonertype)
     sentense = "エアコンを" + temperature + "度で" + airconditonertype + "でつけました"
     return sentense
-"""
+
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
