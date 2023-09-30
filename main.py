@@ -243,14 +243,14 @@ def logout():
     return redirect(url_for('login'))
 
 # ローカル環境
-if __name__ == "__main__":
-    port = int(os.getenv("PORT", 8000))
-    app.run(host="0.0.0.0", port=port, debug=True)
-# 本番用
 # if __name__ == "__main__":
-# #    app.run()
-#     port = int(os.getenv("PORT"))
-#     app.run(host="0.0.0.0", port=port)
+#     port = int(os.getenv("PORT", 8000))
+#     app.run(host="0.0.0.0", port=port, debug=True)
+# 本番用
+if __name__ == "__main__":
+#    app.run()
+    port = int(os.getenv("PORT"))
+    app.run(host="0.0.0.0", port=port)
 
 # 参考サイト
 # https://hirahira.blog/pyhton-flask-login/
