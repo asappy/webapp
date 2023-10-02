@@ -10,12 +10,15 @@ import hashlib
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.urandom(24)
-# app.config['USERNAME'] = 'user'
-# app.config['PASSWORD'] = 'pass'
+app.config['USERNAME'] = 'user'
+app.config['PASSWORD'] = 'pass'
 
 app.config['USERNAME'] = os.environ["WEB_USERNAME"]
 app.config['PASSWORD'] = os.environ["WEB_PASSWORD"]
 
+
+# SWITCHBOT_AUTH_KEY = '753fc75e5a8094fd7fdd3d1ddf23817d7c72e5a16ce0a4c33f34b22aa470709db7d933946ccf72dfff08e10b60ed0545'
+# SWITCHBOT_SECRET = 'b2c26a06812dbb265e4d01f51a1f16fb'
 
 # auth_key = SWITCHBOT_AUTH_KEY
 # secret = SWITCHBOT_SECRET
@@ -248,7 +251,7 @@ def logout():
 # 本番用
 if __name__ == "__main__":
 #    app.run()
-    port = int(os.getenv("PORT"))
+    port = int(os.getenv("PORT",8000))
     app.run(host="0.0.0.0", port=port)
 
 # 参考サイト
