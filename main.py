@@ -133,7 +133,7 @@ def operate_switchobot_airconditioner_turnOn(ID, temperature, airconditonertype)
 #     return redirect('/login')
 @app.route("/")
 def welcome():
-    return()
+    return "hello world."
 
 
 @app.route("/login", methods=["GET"])
