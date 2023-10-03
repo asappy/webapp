@@ -1,5 +1,0 @@
-function closepage(){
-
-	window.close();
-
-}
