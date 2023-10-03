@@ -126,14 +126,14 @@ def operate_switchobot_airconditioner_turnOn(ID, temperature, airconditonertype)
 
 #app = Flask(__name__, static_folder='./static')
 
-# @app.route("/")
-# def welcome():
-#     if "flag" in session and session["flag"]:
-#         return render_template('index.html', username=session["username"])
-#     return redirect('/login')
 @app.route("/")
 def welcome():
-    return "hello world."
+    if "flag" in session and session["flag"]:
+        return render_template('index.html', username=session["username"])
+    return redirect('/login')
+# @app.route("/")
+# def welcome():
+#     return "hello world."
 
 
 @app.route("/login", methods=["GET"])
