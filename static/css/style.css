@@ -65,7 +65,7 @@ grid-2 > .in_grid_item{
     background-color: aquamarine;
     transition: background-color 1s;
 }
-.in_grid_item{
+/* .in_grid_item{
   list-style: none;
   background-color: #ffffff;
   margin-left: 10px;
@@ -73,13 +73,12 @@ grid-2 > .in_grid_item{
   margin-bottom: 5px;
   padding-left: 5px;
   padding-right: 50px;
-  /* border: 10px solid aquamarine; */
   border: 1px solid #000000;
 }
 .in_grid-item:hover{
   background-color: aquamarine;
   transition: background-color 1s;
-}
+} */
 
 /* .grid {
   display: grid;
@@ -109,8 +108,8 @@ grid-2 > .in_grid_item{
 }
 .in_machine-hedline{
   font-weight: bold;
-  margin:0 0 20px;
-  font-size: 10px;
+  margin:0 0 10px;
+  font-size: 5px;
   color: #333;
 }
 
