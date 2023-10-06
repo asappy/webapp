@@ -24,7 +24,7 @@ h1 {
     align-items: center;;
 }
 .grid-2 > .grid-item{
-    width: 50%;
+    width: 25%;
 }
 .grid-3{
   margin: 0;
@@ -83,6 +83,16 @@ h1 {
     margin:0 0 20px;
     font-size: 30px;
     color: #333;
+}
+.in_machine{
+  text-align: center;
+
+}
+.in_machine-hedline{
+  font-weight: bold;
+  margin:0 0 20px;
+  font-size: 15px;
+  color: #333;
 }
 
 

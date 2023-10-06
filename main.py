@@ -101,7 +101,7 @@ def operate_switchobot_turnOn(ID):
     r = requests.post(url, headers=headers, data=json.dumps(params))
     return
 
-def operate_switchobot_airconditioner_turnOn(ID, temperature, airconditonertype):
+def operate_switchobot_airconditioner_turnOn(ID, temperature, mode,fanspeed):
     url = "https://api.switch-bot.com/v1.1/devices/" + ID + "/commands"
     nonce = "zzz"
     t, sign = generate_sign(auth_key, secret, nonce)
@@ -112,16 +112,27 @@ def operate_switchobot_airconditioner_turnOn(ID, temperature, airconditonertype)
         "sign": sign,
         "nonce": nonce,
     }
+    power_state = "on"
+    if mode == "自動":
+        mode_num = 1
+    elif mode == "冷房":
+        mode_num = 2
+    elif mode == "除湿":
+        mode_num = 3
+    elif mode == "送風":
+        mode_num = 4
+    elif mode == "暖房":
+        mode_num = 5
 
+
+    # f"{temperature},{mode},{fanspeed},{power_state}"
     params = {
     "command": "setAll",
-    "parameter": "26,2,1,on",
+    "parameter": f"{temperature},{mode},{fanspeed},{power_state}",
     "commandType": "command"
     }
-    temperature = str(26)
-    airconditonertype = "冷房"
     r = requests.post(url, headers=headers, data=json.dumps(params))
-    return temperature,airconditonertype
+    return
 
 
 #app = Flask(__name__, static_folder='./static')
@@ -233,12 +244,13 @@ def airconditioner_off():
         return render_template("air_off.html", username=session["username"])
     return redirect("/login")
 
-@app.route("/air_on")
+@app.route("/air_on_冷房")
 def airconditioner_on():
     if "flag" in session and session["flag"]:
-        temperature = str(0)
-        airconditonertype = str(0)
-        operate_switchobot_airconditioner_turnOn(device_id_airconditioner,temperature,airconditonertype)
+        temperature = 26
+        airconditonertype = "冷房"
+        
+        operate_switchobot_airconditioner_turnOn(device_id_airconditioner,temperature,airconditonertype,1)
         sentense = "エアコンを" + temperature + "度で" + airconditonertype + "でつけました"
         return render_template("air_on.html", username=session["username"],temperature = temperature, airconditonertype = airconditonertype)
     return redirect("/login")
