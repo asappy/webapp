@@ -240,7 +240,7 @@ def airconditioner_on():
         airconditonertype = str(0)
         operate_switchobot_airconditioner_turnOn(device_id_airconditioner,temperature,airconditonertype)
         sentense = "エアコンを" + temperature + "度で" + airconditonertype + "でつけました"
-        return render_template("air_on.html", username=session["username"])
+        return render_template("air_on.html", username=session["username"],temperature = temperature, airconditonertype = airconditonertype)
     return redirect("/login")
 
 @app.route('/logout', methods=['GET', 'POST'])
