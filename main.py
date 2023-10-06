@@ -113,16 +113,16 @@ def operate_switchobot_airconditioner_turnOn(ID, temperature, mode,fanspeed):
         "nonce": nonce,
     }
     power_state = "on"
-    if mode == "自動":
-        mode_num = 1
-    elif mode == "冷房":
-        mode_num = 2
-    elif mode == "除湿":
-        mode_num = 3
-    elif mode == "送風":
-        mode_num = 4
-    elif mode == "暖房":
-        mode_num = 5
+    # if mode == "自動":
+    #     mode_num = 1
+    # elif mode == "冷房":
+    #     mode_num = 2
+    # elif mode == "除湿":
+    #     mode_num = 3
+    # elif mode == "送風":
+    #     mode_num = 4
+    # elif mode == "暖房":
+    #     mode_num = 5
 
 
     # f"{temperature},{mode},{fanspeed},{power_state}"
@@ -244,15 +244,16 @@ def airconditioner_off():
         return render_template("air_off.html", username=session["username"])
     return redirect("/login")
 
-@app.route("/air_on_冷房")
+@app.route("/air_on_cool")
 def airconditioner_on():
     if "flag" in session and session["flag"]:
         temperature = 26
         airconditonertype = "冷房"
+        mode = 2
         
         operate_switchobot_airconditioner_turnOn(device_id_airconditioner,temperature,airconditonertype,1)
         sentense = "エアコンを" + temperature + "度で" + airconditonertype + "でつけました"
-        return render_template("air_on.html", username=session["username"],temperature = temperature, airconditonertype = airconditonertype)
+        return render_template("air_on.html", username=session["username"],temperature = temperature, airconditonertype = airconditonertype, fan = 1)
     return redirect("/login")
 
 @app.route('/logout', methods=['GET', 'POST'])
