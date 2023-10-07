@@ -250,8 +250,7 @@ def airconditioner_on():
         temperature = 26
         airconditonertype = "冷房"
         mode = 2
-        
-        operate_switchobot_airconditioner_turnOn(device_id_airconditioner,temperature,airconditonertype,1)
+        operate_switchobot_airconditioner_turnOn(device_id_airconditioner,temperature,mode,1)
         sentense = "エアコンを" + temperature + "度で" + airconditonertype + "でつけました"
         return render_template("air_on.html", username=session["username"],temperature = temperature, airconditonertype = airconditonertype, fan = 1)
     return redirect("/login")
