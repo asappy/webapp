@@ -245,7 +245,7 @@ def airconditioner_off():
     return redirect("/login")
 
 @app.route("/air_on_cool")
-def airconditioner_on():
+def airconditioner_cool_on():
     if "flag" in session and session["flag"]:
         temperature = 26
         airconditonertype = "冷房"
@@ -256,7 +256,7 @@ def airconditioner_on():
     return redirect("/login")
 
 @app.route("/air_on_hot")
-def airconditioner_on():
+def airconditioner_hot_on():
     if "flag" in session and session["flag"]:
         temperature = 21
         airconditonertype = "暖房"
