@@ -252,7 +252,18 @@ def airconditioner_on():
         mode = 2
         operate_switchobot_airconditioner_turnOn(device_id_airconditioner,temperature,mode,1)
         sentense = "エアコンを" + temperature + "度で" + airconditonertype + "でつけました"
-        return render_template("air_on.html", username=session["username"],temperature = temperature, airconditonertype = airconditonertype, fan = 1)
+        return render_template("air_on_cool.html", username=session["username"],temperature = temperature, airconditonertype = airconditonertype, fan = 1)
+    return redirect("/login")
+
+@app.route("/air_on_hot")
+def airconditioner_on():
+    if "flag" in session and session["flag"]:
+        temperature = 21
+        airconditonertype = "暖房"
+        mode = 5
+        operate_switchobot_airconditioner_turnOn(device_id_airconditioner,temperature,mode,1)
+        sentense = "エアコンを" + temperature + "度で" + airconditonertype + "でつけました"
+        return render_template("air_on_hot.html", username=session["username"],temperature = temperature, airconditonertype = airconditonertype, fan = 1)
     return redirect("/login")
 
 @app.route('/logout', methods=['GET', 'POST'])
