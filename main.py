@@ -18,9 +18,9 @@ auth_key = os.environ["SWITCHBOT_AUTH_KEY"] # copy and paste from the SwitchBot 
 secret = os.environ["SWITCHBOT_SECRET"] # copy and paste from the SwitchBot app V6.14 or later
 
 
-device_id_light = "02-202207132247-89473231"
-device_id_airconditioner = "02-202207132236-15163498"
-device_id_tv = "02-202207132329-83831759"
+device_id_light = os.environ["DEVICE_ID_LIGHT"]
+device_id_airconditioner = os.environ["DEVICE_ID_AIRCONDITIONER"]
+device_id_tv = os.environ["DEVICE_ID_TV"]
 
 def generate_sign(token: str, secret: str, nonce: str) -> tuple[str, str]:
     #SWITCH BOT APIの認証キーを生成する
