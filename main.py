@@ -10,18 +10,9 @@ import hashlib
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.urandom(24)
-# app.config['USERNAME'] = 'user'
-# app.config['PASSWORD'] = 'pass'
 
 app.config['USERNAME'] = os.environ["WEB_USERNAME"]
 app.config['PASSWORD'] = os.environ["WEB_PASSWORD"]
-
-
-# SWITCHBOT_AUTH_KEY = '753fc75e5a8094fd7fdd3d1ddf23817d7c72e5a16ce0a4c33f34b22aa470709db7d933946ccf72dfff08e10b60ed0545'
-# SWITCHBOT_SECRET = 'b2c26a06812dbb265e4d01f51a1f16fb'
-
-# auth_key = SWITCHBOT_AUTH_KEY
-# secret = SWITCHBOT_SECRET
 
 auth_key = os.environ["SWITCHBOT_AUTH_KEY"] # copy and paste from the SwitchBot app V6.14 or later
 secret = os.environ["SWITCHBOT_SECRET"] # copy and paste from the SwitchBot app V6.14 or later
@@ -113,19 +104,7 @@ def operate_switchobot_airconditioner_turnOn(ID, temperature, mode,fanspeed):
         "nonce": nonce,
     }
     power_state = "on"
-    # if mode == "自動":
-    #     mode_num = 1
-    # elif mode == "冷房":
-    #     mode_num = 2
-    # elif mode == "除湿":
-    #     mode_num = 3
-    # elif mode == "送風":
-    #     mode_num = 4
-    # elif mode == "暖房":
-    #     mode_num = 5
 
-
-    # f"{temperature},{mode},{fanspeed},{power_state}"
     params = {
     "command": "setAll",
     "parameter": f"{temperature},{mode},{fanspeed},{power_state}",
@@ -134,18 +113,11 @@ def operate_switchobot_airconditioner_turnOn(ID, temperature, mode,fanspeed):
     r = requests.post(url, headers=headers, data=json.dumps(params))
     return
 
-
-#app = Flask(__name__, static_folder='./static')
-
 @app.route("/")
 def welcome():
     if "flag" in session and session["flag"]:
         return render_template('index.html', username=session["username"])
     return redirect('/login')
-# @app.route("/")
-# def welcome():
-#     return "hello world."
-
 
 @app.route("/login", methods=["GET"])
 def login():
@@ -170,27 +142,6 @@ def login_post():
         return render_template("index.html", username=session["username"])
     else:
         return redirect("/login")
-
-# ログイン処理
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     if request.method == 'POST':
-#         # 画面で入力された情報を取得
-#         username = request.form['username']
-#         password = request.form['password']
-
-#         # ログイン可否を判定
-#         if app.config["USERNAME"] and app.config["PASSWORD"] == password:
-#             session['username'] = username
-
-#             # ログイン成功でdashbord.htmlを返す
-#             return redirect(url_for('index'))
-#         else:
-#             return render_template('login.html', error='Invalid credentials')
-
-#     # GETの場合はログイン画面へ戻す
-#     return render_template('login.html')
-
 
 @app.route("/index")
 def index():
@@ -271,16 +222,8 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
 
-# ローカル環境
-# if __name__ == "__main__":
-#     port = int(os.getenv("PORT", 8000))
-#     app.run(host="0.0.0.0", port=port, debug=True)
-# 本番用
 if __name__ == "__main__":
 #    app.run()
     port = int(os.getenv("PORT"))
     app.run(host="0.0.0.0", port=port)
 
-# 参考サイト
-# https://hirahira.blog/pyhton-flask-login/
-# https://www.learning-nao.com/?p=4306
